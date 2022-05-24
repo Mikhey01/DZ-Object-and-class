@@ -1,27 +1,24 @@
-import kotlin.random.Random
-
 class WallService {
 
     private var posts = emptyArray<Post>()
-    private var idNumber = 1
 
-//val original = Post(
-//    2, 123654, 12112022,"Добрый день"
-//)
+
     fun add(post: Post): Post {
-
-        idNumber += post.id
+        if (posts.isEmpty()) {
+            post.id = 1
+        } else {
+            post.copy(id = post.id + 1)
+        }
         posts += post
         return posts.last()
     }
 
     fun update(post: Post): Boolean {
-        for ((index, post) in posts.withIndex()) {
-            if(post.id == idNumber) {
-                posts[index] = post.copy(id = post.id,
+        for ((index) in posts.withIndex()) {
+            if (post.id != null) {
+                posts[index] = post.copy(
                     ownerId = post.ownerId,
-                    date = post.date,
-                    text = post.text)
+                    date = post.date)
             }
         }
         return true
