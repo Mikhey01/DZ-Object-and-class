@@ -7,7 +7,7 @@ class WallService {
         if (posts.isEmpty()) {
             post.id = 1
         } else {
-            post.copy(id = post.id + 1)
+            post.id = posts.last().id+1
         }
         posts += post
         return posts.last()
