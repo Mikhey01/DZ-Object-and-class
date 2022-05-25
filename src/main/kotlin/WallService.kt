@@ -13,9 +13,17 @@ class WallService {
         return posts.last()
     }
 
+    fun print() {
+        for (post in posts) {
+            println(post.text)
+            println(post.id)
+
+        }
+    }
+
     fun update(post: Post): Boolean {
-        for ((index) in posts.withIndex()) {
-            if (post.id != null) {
+        for ((index, updatePost) in posts.withIndex()) {
+            if (updatePost.id == post.id) {
                 posts[index] = post.copy(
                     ownerId = post.ownerId,
                     date = post.date)
