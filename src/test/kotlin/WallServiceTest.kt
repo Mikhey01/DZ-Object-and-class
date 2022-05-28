@@ -5,40 +5,35 @@ class WallServiceTest {
 
     @Test
     fun add() {
-        val service = WallService()
-        val posts = emptyArray<Post>()
+        val wallService = WallService()
 
+        val post = wallService.add(Post(0, 321654, 12112022, "Добрый день"))
 
-        service.add(Post(0, 321654, 12112022, "Добрый день"))
-        service.add(Post(0, 654987, 12112022, "Добрый вечер"))
+        var result = false
 
-        val result = fun (_:Post): Boolean {
-            for (post in posts) return  when  {
-                 post.id > 0 -> true
-                else -> false
-            }
-            return true
+        if (post.id > 0) {
+            result = true
         }
+
         assertEquals(true, result)
     }
 
     @Test
-    fun updateExisting() {
+    fun update() {
         // создаём целевой сервис
-        val service = WallService()
+        val wallservice = WallService()
         // заполняем несколькими постами
-        service.add(Post(0, 321654, 12112022, "Добрый день"))
-        service.add(Post(0, 654987, 12112022, "Добрый вечер"))
-        service.add(Post(0, 123698, 12112022, "Доброй ночи"))
+        wallservice.add(Post(0, 321654, 12112022, "Добрый день"))
+        wallservice.add(Post(0, 654987, 12112022, "Добрый вечер"))
+        wallservice.add(Post(0, 123698, 12112022, "Доброй ночи"))
         // создаём информацию об обновлении
-        val update = Post(502321, 321654, 12112022, "Доброй всем ночи")
+        val updateTestPost = Post(1, 321654, 12112022, "Доброй всем ночи")
 
         // выполняем целевое действие
-        val result = service.update(update)
+        val result = wallservice.update(updateTestPost)
 
         // проверяем результат (используйте assertTrue или assertFalse)
         assertTrue(result)
-
     }
 
     @Test
@@ -46,17 +41,19 @@ class WallServiceTest {
         // создаём целевой сервис
         val service = WallService()
         // заполняем несколькими постами
-        service.add(Post(2, 321654, 12112022, "Добрый день"))
-        service.add(Post(3, 654987, 12112022, "Добрый вечер"))
-        service.add(Post(4, 123698, 12112022, "Доброй ночи"))
+        service.add(Post(0, 321654, 12112022, "Добрый день"))
+        service.add(Post(0, 654987, 12112022, "Добрый вечер"))
+        service.add(Post(0, 123698, 12112022, "Доброй ночи"))
         // создаём информацию об обновлении
-        val update = Post(23456, 321654, 12112022, "Доброй всем ночи")
+        val updateTestPost = Post(4, 321654, 12112022, "Доброй всем ночи")
 
         // выполняем целевое действие
-        val result = service.update(update)
+        val result = service.update(updateTestPost)
 
         // проверяем результат (используйте assertTrue или assertFalse)
         assertTrue(result)
     }
-
 }
+
+
+

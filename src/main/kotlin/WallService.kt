@@ -1,13 +1,13 @@
 class WallService {
 
-    private var posts = emptyArray<Post>()
+     private var posts = emptyArray<Post>()
 
 
     fun add(post: Post): Post {
         if (posts.isEmpty()) {
             post.id = 1
         } else {
-            post.id = posts.last().id+1
+            post.id = posts.last().id + 1
         }
         posts += post
         return posts.last()
@@ -27,9 +27,10 @@ class WallService {
                 posts[index] = post.copy(
                     ownerId = post.ownerId,
                     date = post.date)
+                return true
             }
         }
-        return true
+        return false
     }
 }
 
