@@ -1,4 +1,5 @@
 import junit.framework.Assert.*
+import org.junit.Assert.assertNotEquals
 import org.junit.Test
 
 class WallServiceTest {
@@ -9,17 +10,13 @@ class WallServiceTest {
 
         val post = wallService.add(Post(0, 321654, 12112022, "Добрый день"))
 
-        var result = false
+        var result = post.id
 
-        if (post.id > 0) {
-            result = true
-        }
-
-        assertEquals(true, result)
+        assertNotEquals(0, result)
     }
 
     @Test
-    fun update() {
+    fun updateExisting() {
         // создаём целевой сервис
         val wallservice = WallService()
         // заполняем несколькими постами
@@ -36,23 +33,23 @@ class WallServiceTest {
         assertTrue(result)
     }
 
-//    @Test
-//    fun updateExistingNew() {
-//        // создаём целевой сервис
-//        val service = WallService()
-//        // заполняем несколькими постами
-//        service.add(Post(0, 321654, 12112022, "Добрый день"))
-//        service.add(Post(0, 654987, 12112022, "Добрый вечер"))
-//        service.add(Post(0, 123698, 12112022, "Доброй ночи"))
-//        // создаём информацию об обновлении
-//        val updateTestPost = Post(4, 321654, 12112022, "Доброй всем ночи")
-//
-//        // выполняем целевое действие
-//        val result = service.update(updateTestPost)
-//
-//        // проверяем результат (используйте assertTrue или assertFalse)
-//        assertTrue(result)
-//    }
+    @Test
+    fun updateNotExistin() {
+        // создаём целевой сервис
+        val service = WallService()
+        // заполняем несколькими постами
+        service.add(Post(0, 321654, 12112022, "Добрый день"))
+        service.add(Post(0, 654987, 12112022, "Добрый вечер"))
+        service.add(Post(0, 123698, 12112022, "Доброй ночи"))
+        // создаём информацию об обновлении
+        val updateTestPost = Post(0, 321654, 12112022, "Доброй всем ночи")
+
+        // выполняем целевое действие
+        val result = service.update(updateTestPost)
+
+        // проверяем результат (используйте assertTrue или assertFalse)
+        assertFalse(result)
+    }
 }
 
 
